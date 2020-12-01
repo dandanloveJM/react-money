@@ -43,13 +43,12 @@ const Wrapper = styled.section`
 const NumberPadSection: React.FunctionComponent = () => {
   const [output, setOutput] = useState('0');
   const onClickButtonWrapper = (e: React.MouseEvent) => {
+
     const text = (e.target as HTMLButtonElement).textContent;
-    if (text === null) {return;}
-    const dotPosition = output.indexOf('.');
-    const length = output.length;
-    if (length - dotPosition === 2 || length >= 11) {
-      return;
-    }
+    if (text === null || output.length >= 11) {return;}
+
+
+    console.log('11')
     switch (text) {
       case '0':
       case '1':
@@ -61,16 +60,32 @@ const NumberPadSection: React.FunctionComponent = () => {
       case '7':
       case '8':
       case '9':
+        const dotPosition = output.indexOf('.');
         if (output === '0') {
           setOutput(text);
-        } else if (output.indexOf('.') > 0){
-          //把点去掉，123.12 -> 12312
-          const newValue = output.slice(0, dotPosition) + output.slice(dotPosition+1)
-          setOutput(newValue)
-        } else {
-          // '123' -> '12300'
-
+        } else if (dotPosition < 0 || output.length - dotPosition <= 2) {
+          let newText = output + text;
+          setOutput(newText);
         }
+        break;
+      case '.':
+        if (output.indexOf('.') >= 0) {
+          return;
+        } else {
+          setOutput(output + '.');
+        }
+        break;
+      case '删除':
+        let number = output.slice(0, -1) || '0'
+        setOutput(number)
+        break;
+      case '清空':
+        setOutput('0')
+        break;
+      default:
+        return;
+
+
     }
   };
   return (
