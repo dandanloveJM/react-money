@@ -14,8 +14,10 @@ function Money(){
   //   category: '-' as Category,
   //   amount: 0
   // })
-  return (
+
+    return (
     <Layout>
+        <h1>xxx</h1>
       <TagsSection/>
       <NoteSection/>
       <CategorySection/>
