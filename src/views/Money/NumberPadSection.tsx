@@ -30,6 +30,9 @@ const NumberPadSection: React.FunctionComponent<Props> = (props) => {
         if ('0123456789.'.split('').concat(['删除', '清空']).indexOf(text) >= 0) {
             props.onChange(generateOutput(text, props.value));
         }
+        if(text==='OK' && props.onOk) {
+            props.onOk()
+        }
     };
     return (
         <Wrapper>
