@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {useState} from 'react';
+import {useTags} from "../../useTags";
 
 const Wrapper = styled.section`
   background: #FFFFFF; padding: 12px 16px;
@@ -24,41 +24,42 @@ const Wrapper = styled.section`
 `;
 
 type Props = {
-  value: string,
-  onChange: (selected: string) => void
+    value: string,
+    onChange: (selected: string) => void
 };
 
 const TagsSection: React.FunctionComponent<Props> = (props) => {
-  const [tags, setTags] = useState<string[]>(['衣', '食', '住', '行']);
-  // const [selectedTag, setSelectedTags] = useState<string>('');
-  const selectedTag = props.value
+    const selectedTag = props.value
+    const {tags, setTags} = useTags()
 
-  const onAddTag = () => {
-    const tagName = window.prompt('新标签的名称是');
-    if (tagName) {
-      setTags([...tags, tagName]);
-    }
-  };
+    const onAddTag = () => {
+        const tagName = window.prompt('新标签的名称是');
+        if (tagName) {
+            setTags([...tags, tagName]);
+        }
+    };
 
 
-  const onToggleTag = (tag: string) => {
-    props.onChange(tag)
-  };
+    const onToggleTag = (tag: string) => {
+        props.onChange(tag)
+    };
 
-  const getClass = (tag:string) => selectedTag === tag ? 'selected' : '';
+    const getClass = (tag: string) => selectedTag === tag ? 'selected' : '';
 
-  return (
-    <Wrapper>
-      <ol>
-        {tags.map(tag => {
-          return <li key={tag} onClick={() => {onToggleTag(tag);}}
-                     className={getClass(tag)}
-          >{tag}</li>;
-        })}
-      </ol>
-      <button onClick={onAddTag}>新增标签</button>
-    </Wrapper>
-  );
+    return (
+        <Wrapper>
+            <ol>
+                {tags.map(tag => {
+                    return <li key={tag} onClick={() => {
+                        onToggleTag(tag);
+                    }}
+                               className={getClass(tag)}
+                    >{tag}</li>;
+                })}
+            </ol>
+            <button onClick={onAddTag}>新增标签</button>
+        </Wrapper>
+    );
 
 };
 
