@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {useState} from 'react';
+import {Category} from "./categoryConfig";
 
 const Wrapper = styled.section`
   font-size: 24px;
@@ -26,9 +27,15 @@ const Wrapper = styled.section`
   }
 `;
 
-const CategorySection: React.FunctionComponent = () => {
+type Props = {
+    value: Category,
+    onChange: (selected: Category) => void
+}
+
+const CategorySection: React.FunctionComponent<Props> = (props) => {
   const [categoryList] = useState<('-' | '+')[]>(['-', '+']);
-  const [category, setCategory] = useState('-');
+  // const [category, setCategory] = useState('-');
+    const category = props.value
   const categoryMap = {'-': '支出', '+': '收入'};
 
   return (
@@ -36,7 +43,7 @@ const CategorySection: React.FunctionComponent = () => {
       <ul>
         {categoryList.map(c =>
           <li key={c}
-            onClick={() => setCategory(c)}
+            onClick={() => props.onChange(c)}
               className={category === c ? 'selected' : ''}
           >{categoryMap[c]}</li>
         )}

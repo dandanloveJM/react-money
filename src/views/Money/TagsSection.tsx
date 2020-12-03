@@ -23,9 +23,15 @@ const Wrapper = styled.section`
   }
 `;
 
-const TagsSection: React.FunctionComponent = () => {
+type Props = {
+  value: string,
+  onChange: (selected: string) => void
+};
+
+const TagsSection: React.FunctionComponent<Props> = (props) => {
   const [tags, setTags] = useState<string[]>(['衣', '食', '住', '行']);
-  const [selectedTag, setSelectedTags] = useState<string>('');
+  // const [selectedTag, setSelectedTags] = useState<string>('');
+  const selectedTag = props.value
 
   const onAddTag = () => {
     const tagName = window.prompt('新标签的名称是');
@@ -36,7 +42,7 @@ const TagsSection: React.FunctionComponent = () => {
 
 
   const onToggleTag = (tag: string) => {
-    setSelectedTags(tag)
+    props.onChange(tag)
   };
 
   const getClass = (tag:string) => selectedTag === tag ? 'selected' : '';
