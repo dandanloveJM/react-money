@@ -32,7 +32,16 @@ const useTags = () => {
 
     }
 
-    return {tags, setTags, findTags, updateTag, findTagIndex}
+    const deleteTag = (id: number) => {
+        const index = findTagIndex(id);
+        // 深拷贝tags
+        const newTags = JSON.parse(JSON.stringify(tags));
+        // 删掉原先的tag, 然后替换
+        newTags.splice(index, 1)
+        setTags(newTags);
+    }
+
+    return {tags, setTags, findTags, updateTag, findTagIndex, deleteTag}
 }
 
 export {useTags}

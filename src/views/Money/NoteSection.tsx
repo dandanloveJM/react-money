@@ -1,10 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {useRef} from 'react';
+import {ChangeEventHandler} from 'react';
+import {Input} from "../../Components/Input";
 
 const Wrapper = styled.section`
   background: #f5f5f5;
-  padding: 0 16px;
+  padding: 14px 16px;
   font-size: 14px;
   > label {
     display:flex;
@@ -28,25 +29,19 @@ type Props = {
 
 const NoteSection: React.FunctionComponent<Props> = (props) => {
     let note = props.value
-    const refInput = useRef<HTMLInputElement>(null);
-    const onBlur = () => {
-        if (refInput.current !== null) {
-            props.onChange(refInput.current.value);
-        }
-    };
+    const onChange:ChangeEventHandler<HTMLInputElement> = (e) => {
+            props.onChange(e.target.value);
 
+    };
 
     return (
         <Wrapper>
-            <label>
-                <span>备注</span>
-                <input type="text" placeholder='写点备注吧~'
-                       ref={refInput} defaultValue={note} onBlur={onBlur}
-                />
-            </label>
+            <Input label="备注" type="text"
+                   placeholder='写点备注吧~'
+                   value={note}
+                   onChange={onChange}
+            />
         </Wrapper>
-
-
     );
 };
 
