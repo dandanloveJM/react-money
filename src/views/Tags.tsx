@@ -43,9 +43,9 @@ const Tags: React.FunctionComponent = () => {
         <Layout>
             <TagList>
                 {tags.map(tag =>
-                    <li key={tag}>
-                        <Link to={'tags/' + tag}>
-                            <span className="oneline">{tag}</span>
+                    <li key={tag.id}>
+                        <Link to={'tags/' + tag.id}>
+                            <span className="oneline">{tag.id}:{tag.name}</span>
                             <Icon name="right"/>
                         </Link>
                     </li>)}

@@ -10,7 +10,7 @@ import {Category} from "./Money/categoryConfig";
 
 function Money() {
     const [selected, setSelected] = useState({
-        tag: '',
+        tagId: 0,
         note: '',
         category: '-' as Category,
         amount: '0'
@@ -40,8 +40,8 @@ function Money() {
 
     return (
         <Layout>
-            <TagsSection value={selected.tag}
-                         onChange={(tag) => onChange({tag})}/>
+            <TagsSection value={selected.tagId}
+                         onChange={(tagId) => onChange({tagId})}/>
             <NoteSection value={selected.note}
                          onChange={(note) => onChange({note})}
             />
