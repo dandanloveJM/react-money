@@ -31,6 +31,7 @@ const Tag: React.FunctionComponent = (props) => {
     const {findTags, updateTag, deleteTag} = useTags();
     const {id: idString} = useParams<Params>();
     const tag = findTags(parseInt(idString))
+
     const tagContent = (tag: { id: number; name: string }) => {
         return (
             <div>
@@ -51,7 +52,7 @@ const Tag: React.FunctionComponent = (props) => {
     return (
         <Layout>
             <TopBar>
-                <Icon name="left"/>
+                <Icon name="left" onClick={}/>
                 <span>编辑标签</span>
                 <Icon/>
             </TopBar>

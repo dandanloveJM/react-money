@@ -22,23 +22,15 @@ const useTags = () => {
         return result;
     }
     // 传id是为了确定要改哪一个tag,
-    const updateTag = (id: number, obj: {name: string}) => {
-        const index = findTagIndex(id);
-        // 深拷贝tags
-        const newTags = JSON.parse(JSON.stringify(tags));
-        // 删掉原先的tag, 然后替换
-        newTags.splice(index, 1, {id, name: obj.name})
-        setTags(newTags);
-
+    const updateTag = (id: number, obj: { name: string }) => {
+        setTags(tags.map(
+            tag =>
+                tag.id === id ? {id, name: obj.name} : tag
+        ))
     }
 
     const deleteTag = (id: number) => {
-        const index = findTagIndex(id);
-        // 深拷贝tags
-        const newTags = JSON.parse(JSON.stringify(tags));
-        // 删掉原先的tag, 然后替换
-        newTags.splice(index, 1)
-        setTags(newTags);
+        setTags(tags.filter(tag => tag.id !== id))
     }
 
     return {tags, setTags, findTags, updateTag, findTagIndex, deleteTag}
